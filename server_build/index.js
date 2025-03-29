@@ -10,16 +10,36 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const grpc_js_1 = require("@grpc/grpc-js");
+const service_helper_1 = require("./util/service-helper");
+const user_controller_1 = require("./controller/user.controller");
+const user_grpc_pb_1 = require("../generated/user_grpc_pb");
+// Create promise-based server binding
+const bindServer = (server, address) => {
+    return new Promise((resolve, reject) => {
+        server.bindAsync(address, grpc_js_1.ServerCredentials.createInsecure(), (err, port) => {
+            if (err)
+                reject(err);
+            else
+                resolve(port);
+        });
+    });
+};
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         const server = new grpc_js_1.Server();
-        server.bindAsync("127.0.0.1:50051", grpc_js_1.ServerCredentials.createInsecure(), (err, port) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            console.log(`Server running on http://localhost:${port}`);
+        const userController = new user_controller_1.UserController();
+        // Register service with async handlers
+        server.addService(user_grpc_pb_1.UsersService, {
+            getUser: (0, service_helper_1.handleUnaryCall)((req) => userController.getUser(req)),
+            createUser: (0, service_helper_1.handleUnaryCall)((req) => userController.createUser(req)),
         });
+        try {
+            const port = yield bindServer(server, "127.0.0.1:50051");
+            console.log(`gRPC server running on http://localhost:${port}`);
+        }
+        catch (error) {
+            console.error('Failed to start server:', error);
+        }
     });
 }
 main().catch(console.error);
