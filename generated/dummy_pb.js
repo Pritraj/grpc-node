@@ -13,13 +13,13 @@
 
 var jspb = require('google-protobuf');
 var goog = jspb;
-var global =
-    (typeof globalThis !== 'undefined' && globalThis) ||
-    (typeof window !== 'undefined' && window) ||
-    (typeof global !== 'undefined' && global) ||
-    (typeof self !== 'undefined' && self) ||
-    (function () { return this; }).call(null) ||
-    Function('return this')();
+var global = (function() {
+  if (this) { return this; }
+  if (typeof window !== 'undefined') { return window; }
+  if (typeof global !== 'undefined') { return global; }
+  if (typeof self !== 'undefined') { return self; }
+  return Function('return this')();
+}.call(null));
 
 goog.exportSymbol('proto.dummy.Dummy', null, global);
 goog.exportSymbol('proto.dummy.DummyRequest', null, global);
@@ -119,8 +119,8 @@ proto.dummy.Dummy.prototype.toObject = function(opt_includeInstance) {
  */
 proto.dummy.Dummy.toObject = function(includeInstance, msg) {
   var f, obj = {
-name: jspb.Message.getFieldWithDefault(msg, 1, ""),
-age: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    name: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    age: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -279,7 +279,7 @@ proto.dummy.DummyResponse.prototype.toObject = function(opt_includeInstance) {
  */
 proto.dummy.DummyResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-message: jspb.Message.getFieldWithDefault(msg, 1, "")
+    message: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -409,7 +409,7 @@ proto.dummy.DummyRequest.prototype.toObject = function(opt_includeInstance) {
  */
 proto.dummy.DummyRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-name: jspb.Message.getFieldWithDefault(msg, 1, "")
+    name: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {

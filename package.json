@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "protoc": "protoc --proto_path=./protos --js_out=import_style=commonjs,binary:./generated ./protos/*.proto",
+    "protoc": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./generated --grpc_out=grpc_js:./generated --ts_out=service=grpc-node,mode=grpc-js:./generated --proto_path=./protos ./protos/*.proto",
     "build:server": "tsc -p tsconfig.server.json",
     "build:client": "tsc -p tsconfig.client.json",
     "build": "npm run build:server && npm run build:client"
@@ -18,6 +18,9 @@
     "google-protobuf": "^3.21.4"
   },
   "devDependencies": {
+    "@grpc/proto-loader": "^0.7.13",
+    "grpc_tools_node_protoc_ts": "^5.3.3",
+    "grpc-tools": "^1.13.0",
     "typescript": "^4.9.0"
   }
 }
