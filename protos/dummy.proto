@@ -1,0 +1,20 @@
+syntax = "proto3";
+package dummy;
+
+message Dummy {
+  string name = 1;
+  int32 age = 2;
+}
+
+service DummyService {
+  rpc GetDummy (Dummy) returns (Dummy);
+}
+
+message DummyResponse {
+  string message = 1;
+}
+    
+message DummyRequest {
+  string name = 1;
+}
+

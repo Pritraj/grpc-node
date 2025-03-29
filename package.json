@@ -1,0 +1,23 @@
+{
+  "name": "grpc-node-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "protoc": "protoc --proto_path=./protos --js_out=import_style=commonjs,binary:./generated ./protos/*.proto",
+    "build:server": "tsc -p tsconfig.server.json",
+    "build:client": "tsc -p tsconfig.client.json",
+    "build": "npm run build:server && npm run build:client"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.8.0",
+    "google-protobuf": "^3.21.4"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.0"
+  }
+}
